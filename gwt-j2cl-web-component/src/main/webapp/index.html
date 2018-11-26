@@ -1,0 +1,159 @@
+<!--
+  #%L
+  Web Component
+  %%
+  Copyright (C) 2017 - 2018 Vertispan
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Web Component using GWT + J2CL</title>
+<style>
+body {
+	margin: 0;
+}
+</style>
+<style>
+howto-tab {
+	border: 1px solid black;
+	padding: 20px;
+}
+
+howto-panel {
+	padding: 20px;
+	background-color: lightgray;
+}
+
+howto-tab[selected] {
+	background-color: bisque;
+}
+
+howto-tabs
+
+
+
+
+:not
+
+
+ 
+
+
+(
+:defined
+
+
+ 
+
+
+),
+howto-tab
+
+
+
+
+:not
+
+
+ 
+
+
+(
+:defined
+
+
+ 
+
+
+),
+howto-panel
+
+
+
+
+:not
+
+
+ 
+
+
+(
+:defined
+
+
+
+	
+
+
+)
+{
+display
+
+
+
+
+:
+
+
+ 
+
+
+block
+
+
+
+
+;
+}
+howto-checkbox {
+	vertical-align: middle;
+}
+
+howto-label {
+	vertical-align: middle;
+	display: inline-block;
+	font-weight: bold;
+	font-family: sans-serif;
+	font-size: 20px;
+	margin-left: 8px;
+}
+</style>
+
+<script language='javascript' src='js/app.js'></script>
+</head>
+
+<body>
+	<div class="text">
+		<label for="name">Your name:</label> <input id="name"
+			aria-describedby="tp1" />
+		<howto-tooltip id="tp1">Ideally your name is Batman</howto-tooltip>
+		<br> <label for="cheese">Favourite type of cheese: </label> <input
+			id="cheese" aria-describedby="tp2" />
+		<howto-tooltip id="tp2">Help I am trapped inside a
+		tooltip message</howto-tooltip>
+	</div>
+
+
+	<howto-tabs> <howto-tab role="heading" slot="tab">Tab
+	1</howto-tab> <howto-panel role="region" slot="panel">Content 1</howto-panel> <howto-tab
+		role="heading" slot="tab">Tab 2</howto-tab> <howto-panel role="region"
+		slot="panel">Content 2</howto-panel> <howto-tab role="heading"
+		slot="tab">Tab 3</howto-tab> <howto-panel role="region" slot="panel">Content
+	3</howto-panel> </howto-tabs>
+	<howto-checkbox id="join-checkbox"></howto-checkbox>
+	<howto-label ref="join-checkbox">Join Newsletter</howto-label>
+</body>
+</html>
