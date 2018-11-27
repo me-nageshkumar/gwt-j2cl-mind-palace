@@ -42,11 +42,8 @@ public class HowtoLabel extends HTMLElement {
 	private Element slot;
 
 	@JsProperty
-	private String ref;
-	
-	@JsProperty
 	public String[] getObservedAttributes() {
-		return new String[] { "ref" };
+		return new String[] { "for" };
 	}
 
 	public HowtoLabel() {
@@ -74,11 +71,13 @@ public class HowtoLabel extends HTMLElement {
 		this.addEventListener("click", this::onClick);
 	}
 
+	@JsProperty(name="for")
 	public String getRef() {
 		String value = this.getAttribute("for");
 		return value == null ? "" : value;
 	}
 
+	@JsProperty(name="for")
 	public void setRef(String value) {
 		this.setAttribute("for", value);
 	}
@@ -100,30 +99,22 @@ public class HowtoLabel extends HTMLElement {
 
 	private Element currentLabelTarget() {
 		Node scope = this.getRootNode();
-		Element eleScope = (Element) scope;
-		return eleScope.querySelector("[aria-labelledby=" + this.id);
+		return scope.querySelector("[aria-labelledby=" + this.id + "]");
 	}
 
 	private void updateLabel() {
-		// Under polyfill you may end up in situations where elements referenced
-		// by the label are parsed _after_ the label is connected, so defer
-		// looking for them until the next microtask.
-//	      Promise<T>.resolve()
-//	        .then(_ => {
-//	          // Greedily generate id if one is not already present.
-//	          if (!this.id) {
-//	            this.id = `howto-label-generated-${howtoLabelCounter++}`;
-//	          }
-//	          let oldTarget = this._currentLabelTarget();
-//	          let newTarget = this._findTarget();
-//	          if (!newTarget || oldTarget === newTarget) {
-//	            return;
-//	          }
-//	          if (oldTarget) {
-//	            oldTarget.removeAttribute('aria-labelledby');
-//	          }
-//	          newTarget.setAttribute('aria-labelledby', this.id);
-//	        });
+		if (null == this.id || this.id.isEmpty()) {
+			this.id = "howto-label-generated-" + howtoLabelCounter++;
+		}
+		Element oldTarget = this.currentLabelTarget();
+		Element newTarget = this.findTarget();
+		if (null == newTarget || oldTarget == newTarget) {
+			return;
+		}
+		if (null != oldTarget) {
+			oldTarget.removeAttribute("aria-labelledby");
+		}
+		newTarget.setAttribute("aria-labelledby", this.id);
 	}
 
 	private void onSlotChange(Event event) {
@@ -131,9 +122,9 @@ public class HowtoLabel extends HTMLElement {
 	}
 
 	private Element findTarget() {
-		if (this.ref != null) {
+		if (this.getRef() != null && !this.getRef().isEmpty()) {
 			Node scope = this.getRootNode();
-			return ((Element) scope).querySelector("#" + this.ref);
+			return scope.querySelector("#" + this.getRef());
 		}
 
 		AssignedNodesOptionsType assignedNodesOptionsType = new AssignedNodesOptionsType() {
@@ -164,8 +155,8 @@ public class HowtoLabel extends HTMLElement {
 				slottedChildren = (Element) noneTextNode;
 			}
 		}
-		if (null == slottedChildren) {
-			slottedChildren = (Element) slottedChildrens[0];
+		if (null == slottedChildren && !noneTextNodes.isEmpty()) {
+			slottedChildren = (Element) noneTextNodes.get(0);
 		}
 		return slottedChildren;
 	}

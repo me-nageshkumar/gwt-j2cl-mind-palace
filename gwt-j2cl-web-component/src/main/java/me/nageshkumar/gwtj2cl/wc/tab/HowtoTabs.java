@@ -26,11 +26,9 @@ import java.util.List;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Event;
-import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.NodeList;
 import elemental2.dom.ShadowRoot;
-import elemental2.promise.Promise;
 import jsinterop.annotations.JsType;
 
 @JsType
@@ -63,52 +61,22 @@ public class HowtoTabs extends HTMLElement {
 		tabSlot = this.shadowRoot.querySelector("slot[name=tab]");
 		panelSlot = this.shadowRoot.querySelector("slot[name=panel]");
 
-		tabSlot.addEventListener("slotchange", new EventListener() {
-			@Override
-			public void handleEvent(Event evt) {
-				linkPanels();
+		tabSlot.addEventListener("slotchange", this::onSlotChange);
 
-			}
-		});
-		panelSlot.addEventListener("slotchange", new EventListener() {
-			@Override
-			public void handleEvent(Event evt) {
-				linkPanels();
-
-			}
-		});
+		panelSlot.addEventListener("slotchange", this::onSlotChange);
 	}
 
 	public void connectedCallback() {
-		// ShadyCSS.styleElement(this);
-		// this.addEventListener("keydown", this._onKeyDown);
-		this.addEventListener("click", new EventListener() {
-			@Override
-			public void handleEvent(Event event) {
-				HowtoTab howtoTab = (HowtoTab) event.target;
-				if (!howtoTab.getAttribute("role").equals("tab"))
-					return;
-				selectTab((HowtoTab) event.target);
-
-			}
-		});
+		this.addEventListener("click", this::onClick);
 
 		if (!this.hasAttribute("role"))
 			this.setAttribute("role", "tablist");
-		
-		//Promise<HTMLElement>.all
-		// new Promise<HTMLElement>.all
 
-//	      Promise<T>.all([
-	       // DomGlobal.customElements.whenDefined("howto-tab");
-//	        DomGlobal.customElements.whenDefined("howto-panel"),
-//	      ]).then(_ => this._linkPanels());
 		linkPanels();
 	}
 
 	public void disconnectedCallback() {
-		// this.removeEventListener("keydown");
-		// this.removeEventListener("click");
+		this.removeEventListener("click", this::onClick);
 	}
 
 	public HowtoPanel[] allPanels() {
@@ -124,7 +92,7 @@ public class HowtoTabs extends HTMLElement {
 		return howtoPanels.toArray(arrHowtoPanels);
 	}
 
-	private void onSlotChange() {
+	private void onSlotChange(Event event) {
 		this.linkPanels();
 	}
 
@@ -196,43 +164,9 @@ public class HowtoTabs extends HTMLElement {
 		newHowtoTab.focus();
 	}
 
-	private HowtoTab prevTab() {
-		HowtoTab[] howtoTabs = this.allTabs();
-		Integer indx = 0;
-		for (indx = 0; indx < howtoTabs.length; indx++) {
-			if (howtoTabs[indx].getSelected()) {
-				break;
-			}
-		}
-		indx = indx - 1;
-		return howtoTabs[(indx + howtoTabs.length) % howtoTabs.length];
-	}
-
-	private HowtoTab firstTab() {
-		HowtoTab[] howtoTabs = this.allTabs();
-		return howtoTabs[0];
-	}
-
-	private HowtoTab lastTab() {
-		HowtoTab[] howtoTabs = this.allTabs();
-		return howtoTabs[howtoTabs.length - 1];
-	}
-
-	private HowtoTab nextTab() {
-		HowtoTab[] howtoTabs = this.allTabs();
-		Integer indx = 0;
-		for (indx = 0; indx < howtoTabs.length; indx++) {
-			if (howtoTabs[indx].getSelected()) {
-				break;
-			}
-		}
-		indx = indx + 1;
-		return howtoTabs[(indx + howtoTabs.length) % howtoTabs.length];
-	}
-
 	private void onClick(Event event) {
-		HowtoTab howtoTab = (HowtoTab) event.target;
-		if (howtoTab.getAttribute("role").equals("tab"))
+		Element howtoTab = (Element) event.target;
+		if (!howtoTab.getAttribute("role").equals("tab"))
 			return;
 		this.selectTab((HowtoTab) event.target);
 	}

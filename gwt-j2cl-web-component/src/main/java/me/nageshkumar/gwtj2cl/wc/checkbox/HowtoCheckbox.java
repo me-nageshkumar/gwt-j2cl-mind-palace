@@ -67,7 +67,6 @@ public class HowtoCheckbox extends HTMLElement {
 		this.upgradeProperty("checked");
 		this.upgradeProperty("disabled");
 
-		// this.addEventListener('keyup', this._onKeyUp);
 		this.addEventListener("click", this::onClick);
 	}
 
@@ -81,7 +80,6 @@ public class HowtoCheckbox extends HTMLElement {
 	}
 
 	public void disconnectedCallback() {
-		// this.removeEventListener('keyup', this._onKeyUp);
 		this.removeEventListener("click", this::onClick);
 	}
 
@@ -139,12 +137,13 @@ public class HowtoCheckbox extends HTMLElement {
 		if (this.getDisabled())
 			return;
 		this.setChecked(!this.getChecked());
-//		this.dispatchEvent(new CustomEvent("change", {
-//	        detail: {
-//	          checked: this.checked,
-//	        },
-//	        bubbles: true,
-//	    }));
+		// To Do
+		// this.dispatchEvent(new CustomEvent("change", {
+		//		detail: {
+		//			checked: this.checked,
+		//		},
+		//		bubbles: true,
+		//	}));
 	}
 
 }

@@ -3,7 +3,6 @@ package me.nageshkumar.gwtj2cl.wc.tooltip;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Event;
-import elemental2.dom.EventListener;
 
 /*
  * #%L
@@ -49,67 +48,35 @@ public class HowtoTooltip extends HTMLElement {
 		this.hidden = true;
 		if (null == target)
 			return;
-		target.addEventListener("focus", new EventListener() {
+		target.addEventListener("focus", this::onFocus);
+		target.addEventListener("blur", this::onBlur);
+		target.addEventListener("mouseenter", this::onMouseEnter);
+		target.addEventListener("mouseleave", this::onMouseLeave);
+	}
 
-			@Override
-			public void handleEvent(Event evt) {
-				hidden = false;
-			}
-		});
-		target.addEventListener("blur", new EventListener() {
+	private void onFocus(Event event) {
+		hidden = false;
+	}
 
-			@Override
-			public void handleEvent(Event evt) {
-				hidden = true;
-			}
-		});
-		target.addEventListener("mouseenter", new EventListener() {
+	private void onBlur(Event event) {
+		hidden = true;
+	}
 
-			@Override
-			public void handleEvent(Event evt) {
-				hidden = false;
-			}
-		});
-		target.addEventListener("mouseleave", new EventListener() {
+	private void onMouseEnter(Event event) {
+		hidden = false;
+	}
 
-			@Override
-			public void handleEvent(Event evt) {
-				hidden = true;
-			}
-		});
+	private void onMouseLeave(Event event) {
+		hidden = true;
 	}
 
 	public void disconnectedCallback() {
 		if (null == target)
 			return;
-		target.removeEventListener("focus", new EventListener() {
-
-			@Override
-			public void handleEvent(Event evt) {
-				hidden = false;
-			}
-		});
-		target.removeEventListener("blur", new EventListener() {
-
-			@Override
-			public void handleEvent(Event evt) {
-				hidden = true;
-			}
-		});
-		target.removeEventListener("mouseenter", new EventListener() {
-
-			@Override
-			public void handleEvent(Event evt) {
-				hidden = false;
-			}
-		});
-		target.removeEventListener("mouseleave", new EventListener() {
-
-			@Override
-			public void handleEvent(Event evt) {
-				hidden = true;
-			}
-		});
+		target.removeEventListener("focus", this::onFocus);
+		target.removeEventListener("blur", this::onFocus);
+		target.removeEventListener("mouseenter", this::onFocus);
+		target.removeEventListener("mouseleave", this::onFocus);
 		target = null;
 	}
 }

@@ -23,17 +23,19 @@ package me.nageshkumar.gwtj2cl.wc.tab;
 import elemental2.dom.HTMLElement;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 
 @JsType
 public class HowtoTab extends HTMLElement {
 
 	private static Integer howtoTabCounter = 0;
-
-	@JsProperty
-	public Boolean selected;
+	
+	public String[] getObservedAttributes() {
+		return new String[] { "selected" };
+	}
 
 	public HowtoTab() {
-		observedAttributes = new String[] { "selected" };
 	}
 
 	public void connectedCallback() {
@@ -46,12 +48,13 @@ public class HowtoTab extends HTMLElement {
 		upgradeProperty("selected");
 	}
 
-	private void upgradeProperty(String prop) {
-//	      if (this.hasOwnProperty(prop)) {
-//	          let value = this[prop];
-//	          delete this[prop];
-//	          this[prop] = value;
-//	      }
+	private void upgradeProperty(String propertyName) {
+		JsPropertyMap<Boolean> jsPropertyMap = Js.cast(this);
+		Boolean jsObject = jsPropertyMap.get(propertyName);
+		if (null != jsObject) {
+			jsPropertyMap.delete(propertyName);
+			jsPropertyMap.set(propertyName, jsObject);
+		}
 	}
 
 	public void attributeChangedCallback() {
@@ -60,6 +63,7 @@ public class HowtoTab extends HTMLElement {
 		this.setAttribute("tabindex", value ? 0 : -1);
 	}
 
+	@JsProperty
 	public void setSelected(Boolean value) {
 		if (value)
 			this.setAttribute("selected", "");
@@ -67,6 +71,7 @@ public class HowtoTab extends HTMLElement {
 			this.removeAttribute("selected");
 	}
 
+	@JsProperty
 	public Boolean getSelected() {
 		return this.hasAttribute("selected");
 	}

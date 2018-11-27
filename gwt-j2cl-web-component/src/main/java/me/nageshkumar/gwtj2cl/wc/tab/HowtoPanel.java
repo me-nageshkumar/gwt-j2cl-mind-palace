@@ -33,7 +33,7 @@ public class HowtoPanel extends HTMLElement {
 
 	public void connectedCallback() {
 		this.setAttribute("role", "tabpanel");
-		if (null != this.id)
+		if (null != this.id && this.id.isEmpty())
 			this.id = "howto-panel-generated-" + howtoPanelCounter++;
 	}
 }
