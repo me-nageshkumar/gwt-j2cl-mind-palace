@@ -48,35 +48,27 @@ public class HowtoTooltip extends HTMLElement {
 		this.hidden = true;
 		if (null == target)
 			return;
-		target.addEventListener("focus", this::onFocus);
-		target.addEventListener("blur", this::onBlur);
-		target.addEventListener("mouseenter", this::onMouseEnter);
-		target.addEventListener("mouseleave", this::onMouseLeave);
+		target.addEventListener("focus", this::show);
+		target.addEventListener("blur", this::hide);
+		target.addEventListener("mouseenter", this::show);
+		target.addEventListener("mouseleave", this::hide);
 	}
 
-	private void onFocus(Event event) {
+	private void show(Event event) {
 		hidden = false;
 	}
 
-	private void onBlur(Event event) {
-		hidden = true;
-	}
-
-	private void onMouseEnter(Event event) {
-		hidden = false;
-	}
-
-	private void onMouseLeave(Event event) {
+	private void hide(Event event) {
 		hidden = true;
 	}
 
 	public void disconnectedCallback() {
 		if (null == target)
 			return;
-		target.removeEventListener("focus", this::onFocus);
-		target.removeEventListener("blur", this::onFocus);
-		target.removeEventListener("mouseenter", this::onFocus);
-		target.removeEventListener("mouseleave", this::onFocus);
+		target.removeEventListener("focus", this::show);
+		target.removeEventListener("blur", this::hide);
+		target.removeEventListener("mouseenter", this::show);
+		target.removeEventListener("mouseleave", this::hide);
 		target = null;
 	}
 }
