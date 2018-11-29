@@ -1,5 +1,6 @@
 package me.nageshkumar.gwtj2cl.wc.tooltip;
 
+import elemental2.core.Function;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.Event;
@@ -27,6 +28,8 @@ import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;
 import jsinterop.annotations.JsConstructor;
 import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 
 @JsType
 public class HowtoTooltip extends HTMLElement {
@@ -35,6 +38,23 @@ public class HowtoTooltip extends HTMLElement {
 
 	@JsConstructor
 	public HowtoTooltip() {
+		super();
+		JsPropertyMap<Object> props = Js.asPropertyMap(this);
+		Function showFunction = props.getAny("show").uncheckedCast();
+		showFunction = showFunction.bind(this);
+		props.set("show", showFunction);
+
+		Function hideFunction = props.getAny("hide").uncheckedCast();
+		hideFunction = hideFunction.bind(this);
+		props.set("hide", hideFunction);
+	}
+
+	public void show(Event event) {
+		hidden = false;
+	}
+
+	public void hide(Event event) {
+		hidden = true;
 	}
 
 	public void connectedCallback() {
@@ -54,18 +74,10 @@ public class HowtoTooltip extends HTMLElement {
 		target.addEventListener("mouseleave", this::hide);
 	}
 
-	private void show(Event event) {
-		hidden = false;
-	}
-
-	private void hide(Event event) {
-		hidden = true;
-	}
-
 	public void disconnectedCallback() {
 		if (null == target)
 			return;
-		target.removeEventListener("focus", this::show);
+		target.removeEventListener("focus", this::hide);
 		target.removeEventListener("blur", this::hide);
 		target.removeEventListener("mouseenter", this::show);
 		target.removeEventListener("mouseleave", this::hide);
