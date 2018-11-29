@@ -17,143 +17,155 @@
   limitations under the License.
   #L%
   -->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-<title>Web Component using GWT + J2CL</title>
-<style>
-body {
-	margin: 0;
-}
-</style>
-<style>
-howto-tab {
-	border: 1px solid black;
-	padding: 20px;
-}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-howto-panel {
-	padding: 20px;
-	background-color: lightgray;
-}
+    <title>POC - Web Component using GWT3 + J2CL</title>
 
-howto-tab[selected] {
-	background-color: bisque;
-}
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-howto-tabs
+    <!-- Custom styles for this template -->
+    <style>
+        body {
+            padding-top: 2rem;
+        }
+        .starter-template {
+            padding: 3rem 1.5rem;
+        }
+        
+        howto-tab {
+            border: 1px solid black;
+            padding: 20px;
+        }
+        
+        howto-panel {
+            padding: 20px;
+            background-color: lightgray;
+        }
+        
+        howto-tab[selected] {
+            background-color: bisque;
+        }
+        
+        howto-tabs:not(:defined),
+        howto-tab:not(:defined),
+        howto-panel:not(:defined) {
+        display:block;
+        }
+        
+        howto-checkbox {
+            vertical-align: middle;
+        }
+        
+        howto-label {
+            vertical-align: middle;
+            display: inline-block;
+            font-weight: bold;
+            font-family: sans-serif;
+            font-size: 20px;
+            margin-left: 8px;
+        }
+        </style>
+        <!-- <script language='javascript' src='js/native-shim.js'></script> -->
+        <!-- <script language='javascript' src='js/custom-elements.min.js'></script> -->
+        <!-- <script language='javascript' src='js/document-register-element.js'></script> -->
+        <!-- <script language='javascript' src='js/min.js'></script> -->
+        <script language='javascript' src='js/webcomponents-bundle.js'></script>
+        <script language='javascript' src='js/app.js'></script>
+  </head>
 
+  <body>
 
-
-
-:not
-
-
- 
-
-
-(
-:defined
-
-
- 
-
-
-),
-howto-tab
-
-
-
-
-:not
-
-
- 
-
-
-(
-:defined
-
-
- 
-
-
-),
-howto-panel
-
-
-
-
-:not
-
-
- 
-
-
-(
-:defined
-
-
-
-	
-
-
-)
-{
-display
-
-
-
-
-:
-
-
- 
-
-
-block
-
-
-
-
-;
-}
-howto-checkbox {
-	vertical-align: middle;
-}
-
-howto-label {
-	vertical-align: middle;
-	display: inline-block;
-	font-weight: bold;
-	font-family: sans-serif;
-	font-size: 20px;
-	margin-left: 8px;
-}
-</style>
-
-<script language='javascript' src='js/app.js'></script>
-</head>
-
-<body>
-	<div class="text">
-		<label for="name">Your name:</label> <input id="name"
-			aria-describedby="tp1" />
-		<howto-tooltip id="tp1">Ideally your name is Batman</howto-tooltip>
-		<br> <label for="cheese">Favourite type of cheese: </label> <input
-			id="cheese" aria-describedby="tp2" />
-		<howto-tooltip id="tp2">Help I am trapped inside a
-		tooltip message</howto-tooltip>
-	</div>
-
-
-	<howto-tabs> <howto-tab role="heading" slot="tab">Tab
-	1</howto-tab> <howto-panel role="region" slot="panel">Content 1</howto-panel> <howto-tab
-		role="heading" slot="tab">Tab 2</howto-tab> <howto-panel role="region"
-		slot="panel">Content 2</howto-panel> <howto-tab role="heading"
-		slot="tab">Tab 3</howto-tab> <howto-panel role="region" slot="panel">Content
-	3</howto-panel> </howto-tabs>
-	<howto-checkbox id="join-checkbox"></howto-checkbox>
-	<howto-label for="join-checkbox">Join Newsletter</howto-label>
-</body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <p class="navbar-brand" style="margin-top: 0;margin-bottom: 0;">POC - Web Component using GWT3 + J2CL</p>
+        </nav>
+    
+        <main role="main" class="container">
+            <div class="starter-template">
+                <p class="lead"></p>
+            </div>
+            <div class="container">
+                <div class="row" style="margin-bottom: 30px;">
+                    <div class="col col-lg-3">
+                        <span>These Web Components are cloned to GWT3 + J2CL from</span>
+                    </div>
+                    <div class="col col-lg-9">
+                        <a href="https://developers.google.com/web/fundamentals/web-components/examples/howto-tooltip">https://developers.google.com/web/fundamentals/web-components/examples/howto-tooltip</a>
+                        <a href="https://developers.google.com/web/fundamentals/web-components/examples/howto-tabs">https://developers.google.com/web/fundamentals/web-components/examples/howto-tabs</a>
+                        <a href="https://developers.google.com/web/fundamentals/web-components/examples/howto-checkbox">https://developers.google.com/web/fundamentals/web-components/examples/howto-checkbox</a>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 30px;">
+                    <div class="col col-lg-3">
+                        <span>&lt;howto-tooltip&gt;</span>
+                    </div>
+                    <div class="col col-lg-9">
+                        <div class="row">
+                            <div class="col col-lg-4">
+                                <label for="name">Your name:</label>
+                            </div>
+                            <div class="col col-lg-3">
+                                <input id="name" aria-describedby="tp1" />
+                            </div>
+                            <div class="col col-lg-5">
+                                <howto-tooltip id="tp1">Ideally your name is Batman</howto-tooltip>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-lg-4">
+                                <label for="cheese">Favourite type of cheese: </label>
+                            </div>
+                            <div class="col col-lg-3">
+                                <input id="cheese" aria-describedby="tp2" />
+                            </div>
+                            <div class="col col-lg-5">
+                                <howto-tooltip id="tp2">Help I am trapped inside a tooltip message</howto-tooltip>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 30px;">
+                    <div class="col col-lg-3">
+                        <span>&lt;howto-tabs&gt;</span><br/>
+                        <span>&lt;howto-tab&gt;</span><br/>
+                        <span>&lt;howto-panel&gt;</span>
+                    </div>
+                    <div class="col col-lg-9">
+                        <div class="row">
+                            <div class="col col-lg-12">
+                                <howto-tabs>
+                                    <howto-tab role="heading" slot="tab">Tab 1</howto-tab>
+                                    <howto-panel role="region" slot="panel">Content 1</howto-panel>
+                                    <howto-tab role="heading" slot="tab">Tab 2</howto-tab>
+                                    <howto-panel role="region" slot="panel">Content 2</howto-panel>
+                                    <howto-tab role="heading" slot="tab">Tab 3</howto-tab>
+                                    <howto-panel role="region" slot="panel">Content 3</howto-panel>
+                                </howto-tabs>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-lg-3">
+                        <span>&lt;howto-checkbox&gt;</span><br/>
+                        <span>&lt;howto-label&gt;</span>
+                    </div>
+                    <div class="col col-lg-9">
+                        <div class="row">
+                            <div class="col col-lg-12">
+                                <howto-checkbox id="join-checkbox"></howto-checkbox>
+                                <howto-label for="join-checkbox">Join Newsletter</howto-label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main><!-- /.container -->
+    </body>
 </html>
